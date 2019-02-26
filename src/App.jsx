@@ -1,14 +1,19 @@
 import { hot } from 'react-hot-loader';
 import React, { Component } from 'react';
 import './App.css';
+import GameScreen from './GameScreen';
 
 class App extends Component {
-  state = {
-    name: 'superstar-hangul',
-  };
+  constructor() {
+    super();
+    this.state = {
+      name: 'superstar-hangul',
+      currentScreen: <GameScreen />,
+    };
+  }
 
   render() {
-    const { name } = this.state;
+    const { name, currentScreen } = this.state;
     return (
       <div className="App">
         <h1>
@@ -16,7 +21,9 @@ class App extends Component {
           <br />
           {name}
         </h1>
+        {currentScreen}
       </div>
+
     );
   }
 }
