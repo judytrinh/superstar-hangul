@@ -11,12 +11,18 @@ import SummaryScreen from './screens/SummaryScreen';
 export default class GameScreen extends Component {
   constructor() {
     super();
+
+    // When each component gets rendered during its turn, it mounts and
+    // initializes at that moment. The moment each one gets "un-rendered",
+    // it unmounts. This is quite unintuitive if you're thinking about it in an
+    // object-oriented manner but we'll roll with it.
     this.screenList = [
       <HomeScreen moveToNextScreen={this.moveToNextScreen} />,
       <LevelSelectScreen moveToNextScreen={this.moveToNextScreen} />,
       <GameplayScreen moveToNextScreen={this.moveToNextScreen} />,
       <SummaryScreen />,
     ];
+
     this.currentScreenIndex = 0;
     this.state = {
       currentScreen: this.getCurrentScreen(),
@@ -28,16 +34,20 @@ export default class GameScreen extends Component {
   }
 
   moveToNextScreen = () => {
-    if (this.currentScreenIndex === this.screeList.length - 1) {
+    if (this.currentScreenIndex === this.screenList.length - 1) {
       return;
     }
     this.currentScreenIndex += 1;
-
-    this.setState({ currentScreen: this.getCurrentScreen() });
+    this.updateCurrentScreen();
   };
 
   resetToFirstScreen() {
     this.currentScreenIndex = 0;
+    this.updateCurrentScreen();
+  }
+
+  updateCurrentScreen() {
+    this.setState({ currentScreen: this.getCurrentScreen() });
   }
 
   render() {
