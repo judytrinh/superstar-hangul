@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
+
 
 /**
  * Introductory screen when the user starts the game.
@@ -23,8 +25,8 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <div id="home-screen">
-        <h2>Press any key to start</h2>
-        <div>[시작]</div>
+        <h2>Superstar Hangul is a typing game that tests your Korean touch typing skills. Type the lyrics you see on the screen as fast as you can. Are you 준비?</h2>
+        <Button color="secondary">Press any key to start</Button>
       </div>
     );
   }
