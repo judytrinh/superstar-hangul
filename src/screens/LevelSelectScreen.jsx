@@ -54,7 +54,7 @@ export default class LevelSelectScreen extends Component {
           <Card>
             <CardImg top width="100%" src="src/images/babyDontStop.jpg" alt="Card image cap" />
             <CardBody>
-              <CardTitle>NCT U - Baby Don&apost Stop</CardTitle>
+              <CardTitle>NCT U - Baby Don&apos;t Stop</CardTitle>
               <Button outline color="info">Hard</Button>
             </CardBody>
           </Card>
