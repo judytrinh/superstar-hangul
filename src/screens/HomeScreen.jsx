@@ -28,29 +28,25 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <div id="home-screen">
-            <br />
+        <br />
 
-            <div id="start-info">Superstar Hangul is a typing game that tests your Korean touch typing skills. Type the lyrics you see on the screen as fast as you can. Are you 준비?</div> 
-            
-            <div id="sample-game">
-                <h2 class="sample-text">내게 말해줘 이게 사랑이라면</h2>
-                <h6 class="sample-text">Tell me if this is love</h6>
-                <br />
+        <div id="start-info">Superstar Hangul is a typing game that tests your Korean touch typing skills. Type the lyrics you see on the screen as fast as you can. Are you 준비?</div>
 
-                <div class="cursor">
-                    <input type="text" placeholder="Type what you see" />
-                    <i></i>
-                </div>
-                
-            </div>
-            
-            <br />
-            <br />
-            <br />
-            <Button outline color="info">Choose a Song to Begin</Button>
-            
-            
-            
+        <div id="sample-game">
+          <h2 className="sample-text">내게 말해줘 이게 사랑이라면</h2>
+          <h6 className="sample-text">Tell me if this is love</h6>
+          <br />
+
+          <div className="cursor">
+            <input type="text" placeholder="Type what you see" />
+          </div>
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <Button outline color="info">Choose a Song to Begin</Button>
       </div>
     );
   }
