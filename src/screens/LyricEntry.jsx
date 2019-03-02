@@ -35,10 +35,14 @@ export default class LyricEntry extends Component {
   render() {
     const { translation, lyric } = this.props;
     return (
-      <div className="lyric-entry">
-        <div>{translation}</div>
-        <div>{lyric}</div>
-        <input />
+      <div id="lyric-entry">
+        <h2 className="sample-text">{lyric}</h2>
+        <h6 className="sample-text">{translation}</h6>
+        <br />
+
+        <div className="cursor">
+          <input type="text" placeholder="Type what you see" />
+        </div>
       </div>
     );
   }

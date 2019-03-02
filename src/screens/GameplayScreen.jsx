@@ -9,8 +9,8 @@ export default class GameplayScreen extends Component {
   constructor() {
     super();
     this.state = {
-      currentTranslation: 'I miss you',
-      currentLyric: '보고 십다',
+      currentTranslation: 'Tell me if this is love',
+      currentLyric: '내게 말해줘 이게 사랑이라면',
     };
   }
 
@@ -38,8 +38,8 @@ export default class GameplayScreen extends Component {
   // we should use that to populate the next set of lyrics
   moveToNextLyric = () => {
     this.setState({
-      currentTranslation: 'When I say that',
-      currentLyric: '이렇게 말하니까',
+      currentTranslation: 'Sharing and learning countless emotions everyday with you',
+      currentLyric: '매일 그대와 수많은 감정들을 나눠주고 배워가며',
     });
   };
 
