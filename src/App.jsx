@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: 'superstar-hangul',
+      name: 'Superstar Hangul',
       currentScreen: <GameScreen />,
     };
   }
@@ -18,7 +18,6 @@ class App extends Component {
     return (
       <div className="App">
         <h1>
-          Welcome to
           <br />
           {name}
         </h1>
