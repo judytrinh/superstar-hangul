@@ -6,16 +6,18 @@ import PropTypes from 'prop-types';
  */
 export default class HomeScreen extends Component {
   componentDidMount() {
-    document.addEventListener('click', this.onClickAndKeyDown, false);
-    document.addEventListener('keydown', this.onClickAndKeyDown);
+    document.addEventListener('keydown', this.onKeyDown);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.onClickAndKeyDown, false);
-    document.removeEventListener('keydown', this.onClickAndKeyDown);
+    document.removeEventListener('keydown', this.onKeyDown);
   }
 
-  onClickAndKeyDown = () => {
+  onKeyDown = (event) => {
+    if (event.keyCode !== HomeScreen.ENTER_KEY
+        && event.keyCode !== HomeScreen.SPACE_KEY) {
+      return;
+    }
     const { moveToNextScreen } = this.props;
     moveToNextScreen();
   };
@@ -29,6 +31,12 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+/**
+ * Class constants
+ */
+HomeScreen.ENTER_KEY = 13;
+HomeScreen.SPACE_KEY = 32;
 
 HomeScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
