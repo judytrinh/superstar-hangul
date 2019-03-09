@@ -41,4 +41,3 @@ SummaryScreen.SPACE_KEY = 32;
 SummaryScreen.propTypes = {
   resetToFirstScreen: PropTypes.func.isRequired,
 };
-

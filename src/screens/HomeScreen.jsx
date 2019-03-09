@@ -28,7 +28,7 @@ export default class HomeScreen extends Component {
   continue = () => {
     const { moveToNextScreen } = this.props;
     moveToNextScreen();
-  }
+  };
 
 
   render() {

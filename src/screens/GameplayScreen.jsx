@@ -8,13 +8,13 @@ import LyricEntry from './LyricEntry';
 export default class GameplayScreen extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.songInfo[0].props.translation);
     this.lyricIndex = 0;
-    this.songLength = this.props.songInfo.length; 
+    const { songInfo } = this.props;
+    this.songLength = songInfo.length;
     this.state = {
-//      currentTranslation: this.props.songInfo[lyricIndex].translation,
-      currentLyric: this.props.songInfo[this.lyricIndex].props.lyric,
-      currentTranslation: this.props.songInfo[this.lyricIndex].props.translation,
+      currentLyric: songInfo[this.lyricIndex].props.lyric,
+      currentTranslation: songInfo[this.lyricIndex].props.translation,
+      currentDuration: songInfo[this.lyricIndex].props.duration,
     };
   }
 
@@ -41,41 +41,34 @@ export default class GameplayScreen extends Component {
   continue = () => {
     const { moveToNextScreen } = this.props;
     moveToNextScreen();
-  }
-
-
-
+  };
 
   // TODO: once we nail down how the lyric + translation data will be stored,
   // we should use that to populate the next set of lyrics
   moveToNextLyric = () => {
-    //if we're not on the last line, increase line index by 1
-    console.log("lyricIndex="+this.lyricIndex);
-    console.log("songLength="+this.songLength);
-    if (this.lyricIndex >= this.songLength-1){
+    // if we're not on the last line, increase line index by 1
+    if (this.lyricIndex >= this.songLength - 1) {
       this.continue();
-      console.log("time to change mf");
-
-    }
-    else{
-      this.lyricIndex +=1;
+    } else {
+      this.lyricIndex += 1;
+      const { songInfo } = this.props;
       this.setState({
-      currentLyric: this.props.songInfo[this.lyricIndex].props.lyric,
-      currentTranslation: this.props.songInfo[this.lyricIndex].props.translation,
-    });
+        currentLyric: songInfo[this.lyricIndex].props.lyric,
+        currentTranslation: songInfo[this.lyricIndex].props.translation,
+        currentDuration: songInfo[this.lyricIndex].props.duration,
+      });
     }
-    
-    
   };
 
   render() {
-    const { currentTranslation, currentLyric } = this.state;
+    const { currentTranslation, currentLyric, currentDuration } = this.state;
     return (
       <div id="gameplay-screen">
         <LyricEntry
           moveToNextLyric={this.moveToNextLyric}
           translation={currentTranslation}
           lyric={currentLyric}
+          duration={currentDuration}
         />
       </div>
     );
@@ -87,5 +80,5 @@ GameplayScreen.SPACE_KEY = 32;
 
 GameplayScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
-  songInfo: PropTypes.array.isRequired
+  songInfo: PropTypes.instanceOf(Array).isRequired,
 };

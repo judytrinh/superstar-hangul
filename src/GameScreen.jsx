@@ -18,9 +18,11 @@ export default class GameScreen extends Component {
     // object-oriented manner but we'll roll with it.
     this.screenList = [
       <HomeScreen moveToNextScreen={this.moveToNextScreen} />,
-      <LevelSelectScreen moveToNextScreen={this.moveToNextScreen} showCurrentScreen={this.showCurrentScreen} />,
-      <GameplayScreen moveToNextScreen={this.moveToNextScreen} />,
-      <SummaryScreen resetToFirstScreen={this.resetToFirstScreen}/>,
+      <LevelSelectScreen
+        moveToNextScreen={this.moveToNextScreen}
+        showCurrentScreen={this.showCurrentScreen}
+      />,
+      <SummaryScreen resetToFirstScreen={this.resetToFirstScreen} />,
     ];
 
     this.currentScreenIndex = 0;
@@ -44,14 +46,14 @@ export default class GameScreen extends Component {
   resetToFirstScreen = () => {
     this.currentScreenIndex = 0;
     this.updateCurrentScreen();
-  }
+  };
+
+  showCurrentScreen = (screen) => {
+    this.setState({ currentScreen: screen });
+  };
 
   updateCurrentScreen() {
     this.setState({ currentScreen: this.getCurrentScreen() });
-  }
-
-  showCurrentScreen = (screen) => {
-    this.setState({currentScreen : screen });
   }
 
   render() {

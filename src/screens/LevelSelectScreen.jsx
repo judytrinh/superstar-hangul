@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import songData from './hugMeData';
 import LyricEntry from './LyricEntry';
-import GameplayScreen from './GameplayScreen'
+import GameplayScreen from './GameplayScreen';
 
 
 /**
@@ -15,31 +15,27 @@ export default class LevelSelectScreen extends Component {
   // TODO: Remove componentDidMount, componentWillUnmount, onKeyDown
   // when we've actually hooked up the proper condition to move to next screen.
   // This is here to be able to test cycling through screens for now.
-  
+
   constructor() {
     super();
     this.songInfo = [];
     this.State = {
-      songInfo: []
-    }
-    
+      songInfo: [],
+    };
   }
-  
-  //Puts JSON data into songInfo to be passed to new GameplayScreen
+
+  // Puts JSON data into songInfo to be passed to new GameplayScreen
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown);
-    //songInfo is an array of LyricEntry components
-    this.songInfo = songData.map((songInfo, key) => {
-      return (
-        <LyricEntry
-          lyric={songInfo.korean}
-          translation={songInfo.english}
-        />
-      )
-    })
-    this.setState({songInfo: this.songInfo}); 
-
-
+    // songInfo is an array of LyricEntry components
+    this.songInfo = songData.map(songInfo => (
+      <LyricEntry
+        lyric={songInfo.korean}
+        translation={songInfo.english}
+        duration={Number(new Date(songInfo.stop)) - Number(new Date(songInfo.start))}
+      />
+    ));
+    this.setState({ songInfo: this.songInfo });
   }
 
   componentWillUnmount() {
@@ -48,14 +44,17 @@ export default class LevelSelectScreen extends Component {
 
   onKeyDown = (event) => {
     if (event.keyCode !== LevelSelectScreen.ENTER_KEY
-        && event.keyCode !== LevelSelectScreen.SPACE_KEY) {
+      && event.keyCode !== LevelSelectScreen.SPACE_KEY) {
       return;
     }
-    const { showCurrentScreen } = this.props;
-    let screen = <GameplayScreen moveToNextScreen={this.props.moveToNextScreen} songInfo={this.songInfo}/>
-    showCurrentScreen(screen);
+    this.nextScreen();
   };
 
+  nextScreen = () => {
+    const { showCurrentScreen, moveToNextScreen } = this.props;
+    const screen = <GameplayScreen moveToNextScreen={moveToNextScreen} songInfo={this.songInfo} />;
+    showCurrentScreen(screen);
+  };
 
   render() {
     return (
@@ -68,7 +67,7 @@ export default class LevelSelectScreen extends Component {
             <CardImg top width="100%" src="src/images/hugMe.jpg" alt="Card image cap" />
             <CardBody>
               <CardTitle>V, J-hope - 안아줘 (Hug me)</CardTitle>
-              <Button outline color="info">Easy</Button>
+              <Button outline color="info" onClick={this.nextScreen}>Easy</Button>
             </CardBody>
           </Card>
 
@@ -99,5 +98,5 @@ LevelSelectScreen.SPACE_KEY = 32;
 
 LevelSelectScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
-  showCurrentScreen: PropTypes.func.isRequired
+  showCurrentScreen: PropTypes.func.isRequired,
 };
