@@ -6,11 +6,15 @@ import LyricEntry from './LyricEntry';
  * Where the actual gameplay happens. Houses the game logic, typing view, etc.
  */
 export default class GameplayScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    console.log(this.props.songInfo[0].props.translation);
+    this.lyricIndex = 0;
+    this.songLength = this.props.songInfo.length; 
     this.state = {
-      currentTranslation: 'Tell me if this is love',
-      currentLyric: '내게 말해줘 이게 사랑이라면',
+//      currentTranslation: this.props.songInfo[lyricIndex].translation,
+      currentLyric: this.props.songInfo[this.lyricIndex].props.lyric,
+      currentTranslation: this.props.songInfo[this.lyricIndex].props.translation,
     };
   }
 
@@ -34,13 +38,34 @@ export default class GameplayScreen extends Component {
     moveToNextScreen();
   };
 
+  continue = () => {
+    const { moveToNextScreen } = this.props;
+    moveToNextScreen();
+  }
+
+
+
+
   // TODO: once we nail down how the lyric + translation data will be stored,
   // we should use that to populate the next set of lyrics
   moveToNextLyric = () => {
-    this.setState({
-      currentTranslation: 'Sharing and learning countless emotions everyday with you',
-      currentLyric: '매일 그대와 수많은 감정들을 나눠주고 배워가며',
+    //if we're not on the last line, increase line index by 1
+    console.log("lyricIndex="+this.lyricIndex);
+    console.log("songLength="+this.songLength);
+    if (this.lyricIndex >= this.songLength-1){
+      this.continue();
+      console.log("time to change mf");
+
+    }
+    else{
+      this.lyricIndex +=1;
+      this.setState({
+      currentLyric: this.props.songInfo[this.lyricIndex].props.lyric,
+      currentTranslation: this.props.songInfo[this.lyricIndex].props.translation,
     });
+    }
+    
+    
   };
 
   render() {
@@ -62,4 +87,5 @@ GameplayScreen.SPACE_KEY = 32;
 
 GameplayScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
+  songInfo: PropTypes.array.isRequired
 };

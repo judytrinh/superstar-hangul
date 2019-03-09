@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+
 /**
  * Contains the translation, lyric, and text input. Handles text input
  * validation and visual feedback to the user.
@@ -9,6 +10,8 @@ export default class LyricEntry extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    
+  
   }
 
   // TODO: Remove both of these event listener sub/unsub calls when we actually
@@ -31,13 +34,15 @@ export default class LyricEntry extends Component {
       moveToNextLyric();
     }
   };
+  
+
 
   render() {
-    const { translation, lyric } = this.props;
+//    const { translation, lyric } = this.props;
     return (
       <div id="lyric-entry">
-        <h2 className="sample-text">{lyric}</h2>
-        <h6 className="sample-text">{translation}</h6>
+        <h2 className="sample-text">{this.props.lyric}</h2>
+        <h6 className="sample-text">{this.props.translation}</h6>
         <br />
 
         <div className="cursor">
@@ -49,11 +54,13 @@ export default class LyricEntry extends Component {
 }
 
 LyricEntry.propTypes = {
+  //how long to display lyric for
+//  duration: PropTypes.func.isRequired,
   // if in English, not required
   translation: PropTypes.string,
   lyric: PropTypes.string.isRequired,
   // Call this when we've validated that the user's input is correct
-  moveToNextLyric: PropTypes.func.isRequired,
+//  moveToNextLyric: PropTypes.func.isRequired,
 };
 
 LyricEntry.defaultProps = {

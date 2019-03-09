@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import {
   Card, Button, CardImg, CardTitle, CardDeck, CardBody,
 } from 'reactstrap';
+import songData from './hugMeData';
+import LyricEntry from './LyricEntry';
+import GameplayScreen from './GameplayScreen'
+
 
 /**
  * Select the song to play.
@@ -11,8 +15,31 @@ export default class LevelSelectScreen extends Component {
   // TODO: Remove componentDidMount, componentWillUnmount, onKeyDown
   // when we've actually hooked up the proper condition to move to next screen.
   // This is here to be able to test cycling through screens for now.
+  
+  constructor() {
+    super();
+    this.songInfo = [];
+    this.State = {
+      songInfo: []
+    }
+    
+  }
+  
+  //Puts JSON data into songInfo to be passed to new GameplayScreen
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown);
+    //songInfo is an array of LyricEntry components
+    this.songInfo = songData.map((songInfo, key) => {
+      return (
+        <LyricEntry
+          lyric={songInfo.korean}
+          translation={songInfo.english}
+        />
+      )
+    })
+    this.setState({songInfo: this.songInfo}); 
+
+
   }
 
   componentWillUnmount() {
@@ -24,9 +51,11 @@ export default class LevelSelectScreen extends Component {
         && event.keyCode !== LevelSelectScreen.SPACE_KEY) {
       return;
     }
-    const { moveToNextScreen } = this.props;
-    moveToNextScreen();
+    const { showCurrentScreen } = this.props;
+    let screen = <GameplayScreen moveToNextScreen={this.props.moveToNextScreen} songInfo={this.songInfo}/>
+    showCurrentScreen(screen);
   };
+
 
   render() {
     return (
@@ -70,4 +99,5 @@ LevelSelectScreen.SPACE_KEY = 32;
 
 LevelSelectScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
+  showCurrentScreen: PropTypes.func.isRequired
 };

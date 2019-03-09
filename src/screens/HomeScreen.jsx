@@ -25,6 +25,12 @@ export default class HomeScreen extends Component {
     moveToNextScreen();
   };
 
+  continue = () => {
+    const { moveToNextScreen } = this.props;
+    moveToNextScreen();
+  }
+
+
   render() {
     return (
       <div id="home-screen">
@@ -46,7 +52,7 @@ export default class HomeScreen extends Component {
         <br />
         <br />
         <br />
-        <Button outline color="info">Choose a Song to Begin</Button>
+        <Button outline color="info" onClick={this.continue}>Choose a Song to Begin</Button>
       </div>
     );
   }
