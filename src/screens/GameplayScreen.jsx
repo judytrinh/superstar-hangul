@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LyricEntry from './LyricEntry';
 
@@ -10,11 +10,11 @@ export default class GameplayScreen extends Component {
     super(props);
     this.lyricIndex = 0;
     const { songInfo } = this.props;
-    this.songLength = songInfo.length;
+    this.songLength = songInfo.parts.length;
     this.state = {
-      currentLyric: songInfo[this.lyricIndex].props.lyric,
-      currentTranslation: songInfo[this.lyricIndex].props.translation,
-      currentDuration: songInfo[this.lyricIndex].props.duration,
+      currentLyric: songInfo.parts[this.lyricIndex].props.lyric,
+      currentTranslation: songInfo.parts[this.lyricIndex].props.translation,
+      currentDuration: songInfo.parts[this.lyricIndex].props.duration,
     };
   }
 
@@ -53,17 +53,21 @@ export default class GameplayScreen extends Component {
       this.lyricIndex += 1;
       const { songInfo } = this.props;
       this.setState({
-        currentLyric: songInfo[this.lyricIndex].props.lyric,
-        currentTranslation: songInfo[this.lyricIndex].props.translation,
-        currentDuration: songInfo[this.lyricIndex].props.duration,
+        currentLyric: songInfo.parts[this.lyricIndex].props.lyric,
+        currentTranslation: songInfo.parts[this.lyricIndex].props.translation,
+        currentDuration: songInfo.parts[this.lyricIndex].props.duration,
       });
     }
   };
 
   render() {
     const { currentTranslation, currentLyric, currentDuration } = this.state;
+    const { songInfo } = this.props;
     return (
       <div id="gameplay-screen">
+        <audio autoPlay>
+          <source src={songInfo.audioFile} type="audio/mpeg" />
+        </audio>
         <LyricEntry
           moveToNextLyric={this.moveToNextLyric}
           translation={currentTranslation}
@@ -80,5 +84,5 @@ GameplayScreen.SPACE_KEY = 32;
 
 GameplayScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
-  songInfo: PropTypes.instanceOf(Array).isRequired,
+  songInfo: PropTypes.instanceOf(Object).isRequired,
 };

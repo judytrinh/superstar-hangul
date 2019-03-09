@@ -7,7 +7,6 @@ import songData from './hugMeData';
 import LyricEntry from './LyricEntry';
 import GameplayScreen from './GameplayScreen';
 
-
 /**
  * Select the song to play.
  */
@@ -18,7 +17,7 @@ export default class LevelSelectScreen extends Component {
 
   constructor() {
     super();
-    this.songInfo = [];
+    this.songInfo = { audioFile: '', parts: [] };
     this.State = {
       songInfo: [],
     };
@@ -28,13 +27,17 @@ export default class LevelSelectScreen extends Component {
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown);
     // songInfo is an array of LyricEntry components
-    this.songInfo = songData.map(songInfo => (
-      <LyricEntry
-        lyric={songInfo.korean}
-        translation={songInfo.english}
-        duration={Number(new Date(songInfo.stop)) - Number(new Date(songInfo.start))}
-      />
-    ));
+    this.songInfo = {
+      audioFile: 'src/audio/BTS V _ J-HOPE - HUG ME 안아줘.mp3',
+      parts:
+      songData.map(songInfo => (
+        <LyricEntry
+          lyric={songInfo.korean}
+          translation={songInfo.english}
+          duration={Number(new Date(songInfo.stop)) - Number(new Date(songInfo.start))}
+        />
+      )),
+    };
     this.setState({ songInfo: this.songInfo });
   }
 

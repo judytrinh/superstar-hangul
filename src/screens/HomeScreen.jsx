@@ -30,7 +30,6 @@ export default class HomeScreen extends Component {
     moveToNextScreen();
   };
 
-
   render() {
     return (
       <div id="home-screen">
