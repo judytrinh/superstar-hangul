@@ -18,7 +18,7 @@ export default class LevelSelectScreen extends Component {
   constructor() {
     super();
     this.songInfo = { audioFile: '', parts: [] };
-    this.State = {
+    this.state = {
       songInfo: [],
     };
   }
