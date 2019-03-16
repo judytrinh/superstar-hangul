@@ -12,9 +12,9 @@ export default class GameplayScreen extends Component {
     const { songInfo } = this.props;
     this.songLength = songInfo.parts.length;
     this.state = {
-      currentLyric: songInfo.parts[this.lyricIndex].props.lyric,
-      currentTranslation: songInfo.parts[this.lyricIndex].props.translation,
-      currentDuration: songInfo.parts[this.lyricIndex].props.duration,
+      currentLyric: songInfo.parts[this.lyricIndex].lyric,
+      currentTranslation: songInfo.parts[this.lyricIndex].translation,
+      currentDuration: songInfo.parts[this.lyricIndex].duration,
     };
   }
 
@@ -52,9 +52,9 @@ export default class GameplayScreen extends Component {
       this.lyricIndex += 1;
       const { songInfo } = this.props;
       this.setState({
-        currentLyric: songInfo.parts[this.lyricIndex].props.lyric,
-        currentTranslation: songInfo.parts[this.lyricIndex].props.translation,
-        currentDuration: songInfo.parts[this.lyricIndex].props.duration,
+        currentLyric: songInfo.parts[this.lyricIndex].lyric,
+        currentTranslation: songInfo.parts[this.lyricIndex].translation,
+        currentDuration: songInfo.parts[this.lyricIndex].duration,
       });
     }
   };

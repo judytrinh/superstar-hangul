@@ -4,7 +4,6 @@ import {
   Card, Button, CardImg, CardTitle, CardDeck, CardBody,
 } from 'reactstrap';
 import songData from './hugMeData';
-import LyricEntry from './LyricEntry';
 
 /**
  * Select the song to play.
@@ -17,17 +16,15 @@ export default class LevelSelectScreen extends Component {
 
   // Puts JSON data into songInfo to be passed to new GameplayScreen
   componentDidMount() {
-    // songInfo is an array of LyricEntry components
+    // songInfo contains an array of objects
     this.songInfo = {
       audioFile: 'src/audio/BTS V _ J-HOPE - HUG ME 안아줘.mp3',
       parts:
-      songData.map(songInfo => (
-        <LyricEntry
-          lyric={songInfo.korean}
-          translation={songInfo.english}
-          duration={Number(new Date(songInfo.stop)) - Number(new Date(songInfo.start))}
-        />
-      )),
+        songData.map(songInfo => ({
+          lyric: songInfo.korean,
+          translation: songInfo.english,
+          duration: Number(new Date(songInfo.stop)) - Number(new Date(songInfo.start)),
+        })),
     };
   }
 
