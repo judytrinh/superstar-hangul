@@ -42,7 +42,7 @@ export default class HomeScreen extends Component {
           <br />
 
           <div className="cursor">
-            <input type="text" placeholder="Type what you see" />
+            <input className="typing-input" type="text" placeholder="Type what you see" />
           </div>
 
         </div>

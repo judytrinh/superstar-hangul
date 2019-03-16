@@ -108,14 +108,21 @@ export default class LyricEntry extends Component {
     const { translation, lyric } = this.props;
     const { correctInput, editableInput } = this.state;
 
+    const correctInputSpan = correctInput !== '' ? (
+      <span className="correct-input">
+        {correctInput}
+        &nbsp;
+      </span>
+    ) : null;
+
     return (
       <div className="lyric-entry">
         <h2 className="sample-text">{lyric}</h2>
         <h6 className="sample-text">{translation}</h6>
         <br />
 
-        <div className="typing-input">
-          <span className="correct-input">{correctInput}</span>
+        <div className="typing-input cursor">
+          {correctInputSpan}
           <input
             type="text"
             value={editableInput}

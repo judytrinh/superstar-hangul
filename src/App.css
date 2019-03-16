@@ -50,13 +50,36 @@ h2 {
     text-align: left;
 }
 
-.lyric-entry input, .lyric-entry.typing-input {
-    border: 0;
-    outline: 0;
-    background: transparent;
-    border-bottom: 5px solid #16A2B7;
-    width: 80%;
-    font-size: 20px;
+.lyric-entry .typing-input {
+  display: inline-flex;
+  margin: auto;
+  text-align: left;
+  width: 80%;
+  border: 0;
+  border-bottom: 5px solid #16A2B7;
+  outline: 0;
+  background: transparent;
+  font-size: 20px;
+}
+
+.lyric-entry .correct-input {
+  outline: 0;
+  color: #61EAC4;
+  white-space: nowrap;
+  font-size: 20px;
+  padding-bottom: 5px;
+  padding-right: 0;
+  display: inline-block;
+}
+
+.lyric-entry .typing-input input {
+  display: inline-block;
+  flex-grow: 1;
+  width: auto;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  padding-bottom: 5px;
 }
 
 .lyric-entry input::placeholder {
