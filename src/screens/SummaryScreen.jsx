@@ -17,8 +17,7 @@ export default class SummaryScreen extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode !== SummaryScreen.ENTER_KEY
-        && event.keyCode !== SummaryScreen.SPACE_KEY) {
+    if (event.keyCode !== SummaryScreen.ENTER_KEY) {
       return;
     }
     const { resetToFirstScreen } = this.props;
@@ -36,7 +35,6 @@ export default class SummaryScreen extends Component {
 }
 
 SummaryScreen.ENTER_KEY = 13;
-SummaryScreen.SPACE_KEY = 32;
 
 SummaryScreen.propTypes = {
   resetToFirstScreen: PropTypes.func.isRequired,

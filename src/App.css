@@ -50,7 +50,7 @@ h2 {
     text-align: left;
 }
 
-input {
+.lyric-entry input, .lyric-entry.typing-input {
     border: 0;
     outline: 0;
     background: transparent;
@@ -59,7 +59,7 @@ input {
     font-size: 20px;
 }
 
-input::placeholder {
+.lyric-entry input::placeholder {
     font-size: 25px;
     color: lightgray;
 }
@@ -96,4 +96,8 @@ input::placeholder {
     text-align: center;
     padding: 5%;
 
+}
+
+.correct-input {
+  color: green;
 }

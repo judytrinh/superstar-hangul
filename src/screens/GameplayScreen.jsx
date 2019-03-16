@@ -30,8 +30,7 @@ export default class GameplayScreen extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode !== GameplayScreen.ENTER_KEY
-        && event.keyCode !== GameplayScreen.SPACE_KEY) {
+    if (event.keyCode !== GameplayScreen.ENTER_KEY) {
       return;
     }
     const { moveToNextScreen } = this.props;
@@ -80,7 +79,6 @@ export default class GameplayScreen extends Component {
 }
 
 GameplayScreen.ENTER_KEY = 13;
-GameplayScreen.SPACE_KEY = 32;
 
 GameplayScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,

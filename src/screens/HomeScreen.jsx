@@ -17,8 +17,7 @@ export default class HomeScreen extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode !== HomeScreen.ENTER_KEY
-        && event.keyCode !== HomeScreen.SPACE_KEY) {
+    if (event.keyCode !== HomeScreen.ENTER_KEY) {
       return;
     }
     const { moveToNextScreen } = this.props;
@@ -37,7 +36,7 @@ export default class HomeScreen extends Component {
 
         <div id="start-info">Superstar Hangul is a typing game that tests your Korean touch typing skills. Type the lyrics you see on the screen as fast as you can. Are you 준비?</div>
 
-        <div id="sample-game">
+        <div id="sample-game" className="lyric-entry">
           <h2 className="sample-text">내게 말해줘 이게 사랑이라면</h2>
           <h6 className="sample-text">Tell me if this is love</h6>
           <br />
@@ -61,7 +60,6 @@ export default class HomeScreen extends Component {
  * Class constants
  */
 HomeScreen.ENTER_KEY = 13;
-HomeScreen.SPACE_KEY = 32;
 
 HomeScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,

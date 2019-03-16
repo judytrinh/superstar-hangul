@@ -46,8 +46,7 @@ export default class LevelSelectScreen extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode !== LevelSelectScreen.ENTER_KEY
-      && event.keyCode !== LevelSelectScreen.SPACE_KEY) {
+    if (event.keyCode !== LevelSelectScreen.ENTER_KEY) {
       return;
     }
     this.nextScreen();
@@ -97,7 +96,6 @@ export default class LevelSelectScreen extends Component {
 }
 
 LevelSelectScreen.ENTER_KEY = 13;
-LevelSelectScreen.SPACE_KEY = 32;
 
 LevelSelectScreen.propTypes = {
   moveToNextScreen: PropTypes.func.isRequired,
