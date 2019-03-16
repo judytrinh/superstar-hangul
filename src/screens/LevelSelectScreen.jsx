@@ -10,10 +10,6 @@ import LyricEntry from './LyricEntry';
  * Select the song to play.
  */
 export default class LevelSelectScreen extends Component {
-  // TODO: Remove componentDidMount, componentWillUnmount, onKeyDown
-  // when we've actually hooked up the proper condition to move to next screen.
-  // This is here to be able to test cycling through screens for now.
-
   constructor() {
     super();
     this.songInfo = { audioFile: '', parts: [] };
