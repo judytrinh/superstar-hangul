@@ -21,6 +21,7 @@ export default class LevelSelectScreen extends Component {
       audioFile: 'src/audio/BTS V _ J-HOPE - HUG ME 안아줘.mp3',
       parts:
         songData.map(songInfo => ({
+          line: songInfo.line,
           lyric: songInfo.korean,
           translation: songInfo.english,
           duration: Number(new Date(songInfo.stop)) - Number(new Date(songInfo.start)),

@@ -12,6 +12,7 @@ export default class GameplayScreen extends Component {
     const { songInfo } = this.props;
     this.songLength = songInfo.parts.length;
     this.state = {
+      currentLine: songInfo.parts[this.lyricIndex].line,
       currentLyric: songInfo.parts[this.lyricIndex].lyric,
       currentTranslation: songInfo.parts[this.lyricIndex].translation,
       currentDuration: songInfo.parts[this.lyricIndex].duration,
@@ -42,8 +43,6 @@ export default class GameplayScreen extends Component {
     moveToSummaryScreen();
   };
 
-  // TODO: once we nail down how the lyric + translation data will be stored,
-  // we should use that to populate the next set of lyrics
   moveToNextLyric = () => {
     // if we're not on the last line, increase line index by 1
     if (this.lyricIndex >= this.songLength - 1) {
@@ -52,6 +51,7 @@ export default class GameplayScreen extends Component {
       this.lyricIndex += 1;
       const { songInfo } = this.props;
       this.setState({
+        currentLine: songInfo.parts[this.lyricIndex].line,
         currentLyric: songInfo.parts[this.lyricIndex].lyric,
         currentTranslation: songInfo.parts[this.lyricIndex].translation,
         currentDuration: songInfo.parts[this.lyricIndex].duration,
@@ -60,7 +60,7 @@ export default class GameplayScreen extends Component {
   };
 
   render() {
-    const { currentTranslation, currentLyric, currentDuration } = this.state;
+    const { currentLine, currentTranslation, currentLyric, currentDuration } = this.state;
     const { songInfo } = this.props;
     return (
       <div id="gameplay-screen">
@@ -69,6 +69,7 @@ export default class GameplayScreen extends Component {
         </audio>
         <LyricEntry
           moveToNextLyric={this.moveToNextLyric}
+          line={currentLine}
           translation={currentTranslation}
           lyric={currentLyric}
           duration={currentDuration}

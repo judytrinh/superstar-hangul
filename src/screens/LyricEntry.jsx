@@ -14,6 +14,7 @@ export default class LyricEntry extends Component {
 
   constructor(props) {
     super(props);
+    this.durationTimeout = null;
 
     this.state = {
       correctInput: '',
@@ -23,39 +24,32 @@ export default class LyricEntry extends Component {
     };
 
     this.correctInputGroups = [];
-    const { lyric } = props;
-    this.lyricWordGroups = LyricEntry.tokenizeLyric(lyric);
   }
 
-  // TODO: Remove both of these event listener sub/unsub calls when we actually
-  // implement moving to next set of lyrics after validation.
   componentDidMount() {
-    document.addEventListener('click', this.validateInput, false);
-    this.autoProgress();
+    this.setUpNewLyric();
   }
 
   componentDidUpdate(prevProps) {
-    this.autoProgress();
-
     // If the lyric prop updated, re-parse out the word groups
-    const { lyric } = this.props;
-    if (lyric !== prevProps.lyric) {
-      this.lyricWordGroups = LyricEntry.tokenizeLyric(lyric);
-      this.resetState();
+    const { line } = this.props;
+    if (line !== prevProps.line) {
+      this.setUpNewLyric();
     }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.validateInput, false);
+    if (this.durationTimeout !== null) {
+      clearTimeout(this.durationTimeout);
+    }
   }
 
-  // Call this every time the input changes to validate whether the user has
-  // successfully typed the whole lyric
-  // TODO: remove this when we no longer need auto progress for development
-  validateInput = () => {
-    const { moveToNextLyric } = this.props;
-    moveToNextLyric();
-  };
+  setUpNewLyric() {
+    const { lyric } = this.props;
+    this.lyricWordGroups = LyricEntry.tokenizeLyric(lyric);
+    this.resetState();
+    this.autoProgress();
+  }
 
   // TODO: account for skipping english word groups
   validateInputAndAddFeedback = () => {
@@ -73,11 +67,6 @@ export default class LyricEntry extends Component {
       return;
     }
     this.updateVisualFeedback(currWordGroup);
-
-    if (currWordGroupIndex === this.lyricWordGroups.length - 1) {
-      const { moveToNextLyric } = this.props;
-      moveToNextLyric();
-    }
     this.setState({ currWordGroupIndex: currWordGroupIndex + 1 });
   };
 
@@ -101,8 +90,9 @@ export default class LyricEntry extends Component {
   };
 
   autoProgress() {
-    const { duration } = this.props;
-    setTimeout(this.validateInput, duration);
+    const { lyric, line, duration } = this.props;
+    const { moveToNextLyric } = this.props;
+    this.durationTimeout = setTimeout(moveToNextLyric, duration);
   }
 
   resetState() {
@@ -138,16 +128,17 @@ export default class LyricEntry extends Component {
 }
 
 LyricEntry.propTypes = {
+  // number order of the lyric
+  line: PropTypes.number.isRequired,
   // how long to display lyric for
   duration: PropTypes.number.isRequired,
   // if in English, not required
   translation: PropTypes.string,
   lyric: PropTypes.string.isRequired,
   // Call this when we've validated that the user's input is correct
-  moveToNextLyric: PropTypes.func,
+  moveToNextLyric: PropTypes.func.isRequired,
 };
 
 LyricEntry.defaultProps = {
   translation: '',
-  moveToNextLyric: () => { },
 };
