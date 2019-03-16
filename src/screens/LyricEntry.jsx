@@ -90,7 +90,7 @@ export default class LyricEntry extends Component {
   };
 
   autoProgress() {
-    const { lyric, line, duration } = this.props;
+    const { duration } = this.props;
     const { moveToNextLyric } = this.props;
     this.durationTimeout = setTimeout(moveToNextLyric, duration);
   }

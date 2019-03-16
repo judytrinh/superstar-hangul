@@ -60,7 +60,9 @@ export default class GameplayScreen extends Component {
   };
 
   render() {
-    const { currentLine, currentTranslation, currentLyric, currentDuration } = this.state;
+    const {
+      currentLine, currentTranslation, currentLyric, currentDuration,
+    } = this.state;
     const { songInfo } = this.props;
     return (
       <div id="gameplay-screen">
