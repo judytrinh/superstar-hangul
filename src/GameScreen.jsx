@@ -17,12 +17,10 @@ export default class GameScreen extends Component {
     // it unmounts. This is quite unintuitive if you're thinking about it in an
     // object-oriented manner but we'll roll with it.
     this.screenList = [
-      <HomeScreen moveToNextScreen={this.moveToNextScreen} />,
-      <LevelSelectScreen
-        moveToNextScreen={this.moveToNextScreen}
-        showCurrentScreen={this.showCurrentScreen}
-      />,
-      <SummaryScreen resetToFirstScreen={this.resetToFirstScreen} />,
+      { name: 'Home', screen: <HomeScreen moveToNextScreen={this.moveToNextScreen} /> },
+      { name: 'LevelSelect', screen: <LevelSelectScreen moveToGameplayScreen={this.moveToGameplayScreen} /> },
+      { name: 'Gameplay', screen: null }, // null screen means it needs to be reconstructed from data available from previous screens / realtime
+      { name: 'Summary', screen: null },
     ];
 
     this.currentScreenIndex = 0;
@@ -32,8 +30,27 @@ export default class GameScreen extends Component {
   }
 
   getCurrentScreen() {
-    return this.screenList[this.currentScreenIndex];
+    return this.screenList[this.currentScreenIndex].screen;
   }
+
+  // TODO: consider fetching via name and not index for future proofing.
+  // shouldn't be too costly given the number of screens.
+  moveToGameplayScreen = (songInfo) => {
+    if (this.currentScreenIndex !== 1) { return; }
+    this.screenList[2].screen = (
+      <GameplayScreen moveToSummaryScreen={this.moveToSummaryScreen} songInfo={songInfo} />
+    );
+    this.moveToNextScreen();
+  };
+
+  // TODO: actually pass some real summaryInfo when we get there
+  moveToSummaryScreen = (summaryInfo) => {
+    if (this.currentScreenIndex !== 2) { return; }
+    this.screenList[3].screen = (
+      <SummaryScreen resetToFirstScreen={this.resetToFirstScreen} summaryInfo={summaryInfo} />
+    );
+    this.moveToNextScreen();
+  };
 
   moveToNextScreen = () => {
     if (this.currentScreenIndex === this.screenList.length - 1) {
@@ -46,10 +63,6 @@ export default class GameScreen extends Component {
   resetToFirstScreen = () => {
     this.currentScreenIndex = 0;
     this.updateCurrentScreen();
-  };
-
-  showCurrentScreen = (screen) => {
-    this.setState({ currentScreen: screen });
   };
 
   updateCurrentScreen() {

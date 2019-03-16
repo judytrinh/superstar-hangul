@@ -62,30 +62,36 @@ export default class LyricEntry extends Component {
     const { editableInput, currWordGroupIndex } = this.state;
 
     if (currWordGroupIndex >= this.lyricWordGroups.length) {
-      console.error('Attempting to access word group index out of bounds. Should have proceeded to next set of lyrics by now.');
+      // Attempting to access word group index out of bounds.
+      // Should have proceeded to next set of lyrics by now.
       return;
     }
 
     const currWordGroup = this.lyricWordGroups[currWordGroupIndex];
-
     if (currWordGroup !== editableInput) {
       // Incorrect input so far, will not mark as valid
       return;
     }
-
-    // Input word group was correct, so we now reconstruct the green "valid"
-    // displayed string and update that, as well as remove that word group from
-    // the editable input.
-    this.correctInputGroups.push(currWordGroup);
-    const correctInputString = this.correctInputGroups.join(' ');
-    this.setState({ correctInput: correctInputString });
-    this.setState({ editableInput: editableInput.substring(currWordGroup.length) });
+    this.updateVisualFeedback(currWordGroup);
 
     if (currWordGroupIndex === this.lyricWordGroups.length - 1) {
       const { moveToNextLyric } = this.props;
       moveToNextLyric();
     }
     this.setState({ currWordGroupIndex: currWordGroupIndex + 1 });
+  };
+
+  // Input word group was correct, so we now reconstruct the green "valid"
+  // displayed string and update that, as well as remove that word group from
+  // the editable input.
+  updateVisualFeedback = (currWordGroup) => {
+    this.correctInputGroups.push(currWordGroup);
+    const correctInputString = this.correctInputGroups.join(' ');
+    const { editableInput } = this.state;
+    this.setState({
+      correctInput: correctInputString,
+      editableInput: editableInput.substring(currWordGroup.length),
+    });
   };
 
   handleTypingInputChange = (e) => {

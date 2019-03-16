@@ -33,13 +33,13 @@ export default class GameplayScreen extends Component {
     if (event.keyCode !== GameplayScreen.ENTER_KEY) {
       return;
     }
-    const { moveToNextScreen } = this.props;
-    moveToNextScreen();
+    const { moveToSummaryScreen } = this.props;
+    moveToSummaryScreen();
   };
 
   continue = () => {
-    const { moveToNextScreen } = this.props;
-    moveToNextScreen();
+    const { moveToSummaryScreen } = this.props;
+    moveToSummaryScreen();
   };
 
   // TODO: once we nail down how the lyric + translation data will be stored,
@@ -81,6 +81,6 @@ export default class GameplayScreen extends Component {
 GameplayScreen.ENTER_KEY = 13;
 
 GameplayScreen.propTypes = {
-  moveToNextScreen: PropTypes.func.isRequired,
+  moveToSummaryScreen: PropTypes.func.isRequired,
   songInfo: PropTypes.instanceOf(Object).isRequired,
 };

@@ -5,7 +5,6 @@ import {
 } from 'reactstrap';
 import songData from './hugMeData';
 import LyricEntry from './LyricEntry';
-import GameplayScreen from './GameplayScreen';
 
 /**
  * Select the song to play.
@@ -18,9 +17,6 @@ export default class LevelSelectScreen extends Component {
   constructor() {
     super();
     this.songInfo = { audioFile: '', parts: [] };
-    this.state = {
-      songInfo: [],
-    };
   }
 
   // Puts JSON data into songInfo to be passed to new GameplayScreen
@@ -38,7 +34,6 @@ export default class LevelSelectScreen extends Component {
         />
       )),
     };
-    this.setState({ songInfo: this.songInfo });
   }
 
   componentWillUnmount() {
@@ -49,16 +44,13 @@ export default class LevelSelectScreen extends Component {
     if (event.keyCode !== LevelSelectScreen.ENTER_KEY) {
       return;
     }
-    this.nextScreen();
-  };
-
-  nextScreen = () => {
-    const { showCurrentScreen, moveToNextScreen } = this.props;
-    const screen = <GameplayScreen moveToNextScreen={moveToNextScreen} songInfo={this.songInfo} />;
-    showCurrentScreen(screen);
+    const { moveToGameplayScreen } = this.props;
+    moveToGameplayScreen(this.songInfo);
   };
 
   render() {
+    const { moveToGameplayScreen } = this.props;
+
     return (
       <div id="level-select-screen">
 
@@ -69,7 +61,7 @@ export default class LevelSelectScreen extends Component {
             <CardImg top width="100%" src="src/images/hugMe.jpg" alt="Card image cap" />
             <CardBody>
               <CardTitle>V, J-hope - 안아줘 (Hug me)</CardTitle>
-              <Button outline color="info" onClick={this.nextScreen}>Easy</Button>
+              <Button outline color="info" onClick={() => moveToGameplayScreen(this.songInfo)}>Easy</Button>
             </CardBody>
           </Card>
 
@@ -98,6 +90,5 @@ export default class LevelSelectScreen extends Component {
 LevelSelectScreen.ENTER_KEY = 13;
 
 LevelSelectScreen.propTypes = {
-  moveToNextScreen: PropTypes.func.isRequired,
-  showCurrentScreen: PropTypes.func.isRequired,
+  moveToGameplayScreen: PropTypes.func.isRequired,
 };
