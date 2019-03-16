@@ -21,7 +21,6 @@ export default class LevelSelectScreen extends Component {
 
   // Puts JSON data into songInfo to be passed to new GameplayScreen
   componentDidMount() {
-    document.addEventListener('keydown', this.onKeyDown);
     // songInfo is an array of LyricEntry components
     this.songInfo = {
       audioFile: 'src/audio/BTS V _ J-HOPE - HUG ME 안아줘.mp3',
@@ -35,18 +34,6 @@ export default class LevelSelectScreen extends Component {
       )),
     };
   }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.onKeyDown);
-  }
-
-  onKeyDown = (event) => {
-    if (event.keyCode !== LevelSelectScreen.ENTER_KEY) {
-      return;
-    }
-    const { moveToGameplayScreen } = this.props;
-    moveToGameplayScreen(this.songInfo);
-  };
 
   render() {
     const { moveToGameplayScreen } = this.props;
