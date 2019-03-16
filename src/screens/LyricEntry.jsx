@@ -24,7 +24,7 @@ export default class LyricEntry extends Component {
 
     this.correctInputGroups = [];
     const { lyric } = props;
-    this.lyricWordGroups = this.tokenizeLyric(lyric);
+    this.lyricWordGroups = LyricEntry.tokenizeLyric(lyric);
   }
 
   // TODO: Remove both of these event listener sub/unsub calls when we actually
@@ -40,7 +40,7 @@ export default class LyricEntry extends Component {
     // If the lyric prop updated, re-parse out the word groups
     const { lyric } = this.props;
     if (lyric !== prevProps.lyric) {
-      this.lyricWordGroups = this.tokenizeLyric(lyric);
+      this.lyricWordGroups = LyricEntry.tokenizeLyric(lyric);
       this.resetState();
     }
   }
@@ -62,7 +62,7 @@ export default class LyricEntry extends Component {
     const { editableInput, currWordGroupIndex } = this.state;
 
     if (currWordGroupIndex >= this.lyricWordGroups.length) {
-      Console.error('Attempting to access word group index out of bounds. Should have proceeded to next set of lyrics by now.');
+      console.error('Attempting to access word group index out of bounds. Should have proceeded to next set of lyrics by now.');
       return;
     }
 
