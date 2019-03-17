@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Card, Button, CardImg, CardTitle, CardDeck, CardBody,
 } from 'reactstrap';
-import songData from './hugMeData';
+import songData from './songData';
 
 /**
  * Select the song to play.
