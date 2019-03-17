@@ -67,6 +67,7 @@ export default class GameplayScreen extends Component {
     return (
       <div id="gameplay-screen">
         <audio autoPlay>
+          <track kind="captions" />
           <source src={songInfo.audioFile} type="audio/mpeg" />
         </audio>
         <LyricEntry

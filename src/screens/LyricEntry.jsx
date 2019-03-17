@@ -31,7 +31,7 @@ export default class LyricEntry extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // If the lyric prop updated, re-parse out the word groups
+    // If the lyric prop updated, re-setup the input state for the new lyric
     const { line } = this.props;
     if (line !== prevProps.line) {
       this.setUpNewLyric();
@@ -85,13 +85,11 @@ export default class LyricEntry extends Component {
 
   handleTypingInputChange = (e) => {
     this.setState({ editableInput: e.target.value });
-
     this.validateInputAndAddFeedback();
   };
 
   autoProgress() {
-    const { duration } = this.props;
-    const { moveToNextLyric } = this.props;
+    const { duration, moveToNextLyric } = this.props;
     this.durationTimeout = setTimeout(moveToNextLyric, duration);
   }
 
