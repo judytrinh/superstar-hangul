@@ -12,6 +12,40 @@ export default class LyricEntry extends Component {
     return lyric.split(/\s+/);
   }
 
+  static hasEnglishChars(str) {
+    const regex = /[A-Za-z]/;
+    return regex.test(str);
+  }
+
+  // For each word group, round up all consecutive word groups following it that
+  // are in the same language. Group them together into 1 string per consecutive
+  // set in the language.
+  // Ex. 재 이름 Judy 예요 => ['재 이름 ', 'Judy ', '예요 ']
+  static convertWordGroupsToJsx(lyricWordGroups) {
+    const lyricElements = [];
+    let key = 0;
+    for (let i = 0; i < lyricWordGroups.length;) {
+      let str = '';
+      let j;
+      // For each consecutive set of language word groups, concatenate them
+      // together into a single string to minimize number of DOM elements on the page.
+      const hasEnglishChars = LyricEntry.hasEnglishChars(lyricWordGroups[i]);
+      for (j = i; j < lyricWordGroups.length; j += 1) {
+        if (hasEnglishChars !== LyricEntry.hasEnglishChars(lyricWordGroups[j])) {
+          break;
+        }
+        str += `${lyricWordGroups[j]} `;
+      }
+      // Update the beginning index of the next language set's word groups.
+      i = j;
+      // Push the result as a span el with the class denoting the language.
+      const lang = hasEnglishChars ? 'english' : 'korean';
+      lyricElements.push(<span key={key} className={lang}>{str}</span>);
+      key += 1;
+    }
+    return lyricElements;
+  }
+
   constructor(props) {
     super(props);
     this.durationTimeout = null;
@@ -21,6 +55,7 @@ export default class LyricEntry extends Component {
       editableInput: '',
       // index in this.lyricWordGroups of group that user needs to type correctly next
       currWordGroupIndex: 0,
+      lyricElements: [],
     };
 
     this.correctInputGroups = [];
@@ -49,6 +84,7 @@ export default class LyricEntry extends Component {
     this.lyricWordGroups = LyricEntry.tokenizeLyric(lyric);
     this.resetState();
     this.autoProgress();
+    this.setState({ lyricElements: LyricEntry.convertWordGroupsToJsx(this.lyricWordGroups) });
   }
 
   // TODO: account for skipping english word groups
@@ -103,8 +139,8 @@ export default class LyricEntry extends Component {
   }
 
   render() {
-    const { translation, lyric } = this.props;
-    const { correctInput, editableInput } = this.state;
+    const { translation } = this.props;
+    const { correctInput, editableInput, lyricElements } = this.state;
 
     const correctInputSpan = correctInput !== '' ? (
       <span className="correct-input">
@@ -115,7 +151,7 @@ export default class LyricEntry extends Component {
 
     return (
       <div className="lyric-entry">
-        <h2 className="sample-text">{lyric}</h2>
+        <h2 className="sample-text">{lyricElements}</h2>
         <h6 className="sample-text">{translation}</h6>
         <br />
 

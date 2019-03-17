@@ -87,6 +87,10 @@ h2 {
     color: lightgray;
 }
 
+.lyric-entry .english {
+  color: #D8D8D8;
+}
+
 .cursor {
 	position: relative;
 }
