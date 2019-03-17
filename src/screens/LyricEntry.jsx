@@ -71,6 +71,8 @@ export default class LyricEntry extends Component {
     if (line !== prevProps.line) {
       this.setUpNewLyric();
     }
+    //autofocus
+    this._input.focus();
   }
 
   componentWillUnmount() {
@@ -138,6 +140,7 @@ export default class LyricEntry extends Component {
     this.correctInputGroups = [];
   }
 
+
   render() {
     const { translation } = this.props;
     const { correctInput, editableInput, lyricElements } = this.state;
@@ -154,19 +157,23 @@ export default class LyricEntry extends Component {
         <h2 className="sample-text">{lyricElements}</h2>
         <h6 className="sample-text">{translation}</h6>
         <br />
-
         <div className="typing-input cursor">
           {correctInputSpan}
-          <input
-            type="text"
-            value={editableInput}
-            onChange={this.handleTypingInputChange}
-          />
+          <div className={this.state.focused ? "focused": ""}>
+            <input
+              type="text"
+              value={editableInput}
+              onChange={this.handleTypingInputChange}
+              autofocus="true"
+              ref={c => (this._input = c)}
+            />
+          </div>
         </div>
       </div>
     );
   }
 }
+
 
 LyricEntry.propTypes = {
   // number order of the lyric
