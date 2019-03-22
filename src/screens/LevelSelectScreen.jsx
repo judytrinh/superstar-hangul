@@ -55,6 +55,16 @@ export default class LevelSelectScreen extends Component {
             translation: songInfoList.english,
             duration: Number(new Date(songInfoList.stop)) - Number(new Date(songInfoList.start)),
           })),
+      },
+      {
+        audioFile: 'src/audio/Taemin-Move.mp3',
+        parts:
+          songDataList[2].map(songInfoList => ({
+            line: songInfoList.line,
+            lyric: songInfoList.korean,
+            translation: songInfoList.english,
+            duration: Number(new Date(songInfoList.stop)) - Number(new Date(songInfoList.start)),
+          })),
       }
     ];
     console.log(this.songInfoList);
@@ -88,10 +98,10 @@ export default class LevelSelectScreen extends Component {
           </Card>
 
           <Card>
-            <CardImg top width="100%" src="src/images/babyDontStop.jpg" alt="Card image cap" />
+            <CardImg top width="100%" src="src/images/move.jpg" alt="Card image cap" />
             <CardBody>
-              <CardTitle>NCT U - Baby Don&apos;t Stop</CardTitle>
-              <Button outline color="info">Hard</Button>
+              <CardTitle>Taemin - MOVE</CardTitle>
+              <Button outline color="info" onClick={() => moveToGameplayScreen(this.songInfoList[2])}>Hard</Button>
             </CardBody>
           </Card>
         </CardDeck>
