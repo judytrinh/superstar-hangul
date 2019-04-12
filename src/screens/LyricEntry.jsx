@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTestUtils from 'react-dom/test-utils'; // ES6
 
 /**
  * Contains the translation, lyric, and text input. Handles text input
@@ -71,7 +72,6 @@ export default class LyricEntry extends Component {
     if (line !== prevProps.line) {
       this.setUpNewLyric();
     }
-    //autofocus
     this._input.focus();
   }
 
@@ -138,6 +138,7 @@ export default class LyricEntry extends Component {
       currWordGroupIndex: 0,
     });
     this.correctInputGroups = [];
+    ReactTestUtils.Simulate.keyDown(this._input, { key: 'Enter', keyCode: 13, which: 13 });
   }
 
 
@@ -159,12 +160,12 @@ export default class LyricEntry extends Component {
         <br />
         <div className="typing-input cursor">
           {correctInputSpan}
-          <div className={this.state.focused ? "focused": ""}>
+          <div className={this.state.focused ? 'focused' : ''}>
             <input
               type="text"
               value={editableInput}
               onChange={this.handleTypingInputChange}
-              autofocus="true"
+              autoFocus={true}
               ref={c => (this._input = c)}
             />
           </div>

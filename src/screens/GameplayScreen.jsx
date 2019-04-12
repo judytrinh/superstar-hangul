@@ -9,13 +9,13 @@ export default class GameplayScreen extends Component {
   constructor(props) {
     super(props);
     this.lyricIndex = 0;
-    const { songInfo } = this.props;
-    this.songLength = songInfo.parts.length;
+    const { parts } = this.props;
+    this.songLength = parts.length;
     this.state = {
-      currentLine: songInfo.parts[this.lyricIndex].line,
-      currentLyric: songInfo.parts[this.lyricIndex].lyric,
-      currentTranslation: songInfo.parts[this.lyricIndex].translation,
-      currentDuration: songInfo.parts[this.lyricIndex].duration,
+      currentLine: parts[this.lyricIndex].line,
+      currentLyric: parts[this.lyricIndex].lyric,
+      currentTranslation: parts[this.lyricIndex].translation,
+      currentDuration: parts[this.lyricIndex].duration,
     };
   }
 
@@ -49,12 +49,12 @@ export default class GameplayScreen extends Component {
       this.continue();
     } else {
       this.lyricIndex += 1;
-      const { songInfo } = this.props;
+      const { parts } = this.props;
       this.setState({
-        currentLine: songInfo.parts[this.lyricIndex].line,
-        currentLyric: songInfo.parts[this.lyricIndex].lyric,
-        currentTranslation: songInfo.parts[this.lyricIndex].translation,
-        currentDuration: songInfo.parts[this.lyricIndex].duration,
+        currentLine: parts[this.lyricIndex].line,
+        currentLyric: parts[this.lyricIndex].lyric,
+        currentTranslation: parts[this.lyricIndex].translation,
+        currentDuration: parts[this.lyricIndex].duration,
       });
     }
   };
@@ -63,12 +63,12 @@ export default class GameplayScreen extends Component {
     const {
       currentLine, currentTranslation, currentLyric, currentDuration,
     } = this.state;
-    const { songInfo } = this.props;
+    const { songMetadata } = this.props;
     return (
       <div id="gameplay-screen">
         <audio autoPlay>
           <track kind="captions" />
-          <source src={songInfo.audioFile} type="audio/mpeg" />
+          <source src={songMetadata.audioFile} type="audio/mpeg" />
         </audio>
         <LyricEntry
           moveToNextLyric={this.moveToNextLyric}
@@ -86,5 +86,5 @@ GameplayScreen.ENTER_KEY = 13;
 
 GameplayScreen.propTypes = {
   moveToSummaryScreen: PropTypes.func.isRequired,
-  songInfo: PropTypes.instanceOf(Object).isRequired,
+  songMetadata: PropTypes.instanceOf(Object).isRequired,
 };

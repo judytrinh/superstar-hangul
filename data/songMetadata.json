@@ -1,0 +1,19 @@
+[
+  {
+    "songName": "bts-hugMe",
+    "dataFile": "data/songs/bts-hugMe.json",
+    "audioFile": "data/audio/bts-hugMe.mp3"
+  },
+  
+  {
+    "songName": "iu-palette",
+    "dataFile": "data/songs/iu-palette.json",
+    "audioFile": "data/audio/iu-palette.mp3"
+  },
+  
+  {
+    "songName": "taemin-move",
+    "dataFile": "data/songs/taemin-move.json",
+    "audioFile": "data/audio/taemin-move.mp3"
+  }
+]
