@@ -9,13 +9,13 @@ export default class GameplayScreen extends Component {
   constructor(props) {
     super(props);
     this.lyricIndex = 0;
-    const { parts } = this.props;
-    this.songLength = parts.length;
+    const { songParts } = this.props;
+    this.songLength = songParts.length;
     this.state = {
-      currentLine: parts[this.lyricIndex].line,
-      currentLyric: parts[this.lyricIndex].lyric,
-      currentTranslation: parts[this.lyricIndex].translation,
-      currentDuration: parts[this.lyricIndex].duration,
+      currentLine: songParts[this.lyricIndex].line,
+      currentLyric: songParts[this.lyricIndex].lyric,
+      currentTranslation: songParts[this.lyricIndex].translation,
+      currentDuration: songParts[this.lyricIndex].duration,
     };
   }
 
@@ -49,12 +49,12 @@ export default class GameplayScreen extends Component {
       this.continue();
     } else {
       this.lyricIndex += 1;
-      const { parts } = this.props;
+      const { songParts } = this.props;
       this.setState({
-        currentLine: parts[this.lyricIndex].line,
-        currentLyric: parts[this.lyricIndex].lyric,
-        currentTranslation: parts[this.lyricIndex].translation,
-        currentDuration: parts[this.lyricIndex].duration,
+        currentLine: songParts[this.lyricIndex].line,
+        currentLyric: songParts[this.lyricIndex].lyric,
+        currentTranslation: songParts[this.lyricIndex].translation,
+        currentDuration: songParts[this.lyricIndex].duration,
       });
     }
   };
@@ -87,4 +87,5 @@ GameplayScreen.ENTER_KEY = 13;
 GameplayScreen.propTypes = {
   moveToSummaryScreen: PropTypes.func.isRequired,
   songMetadata: PropTypes.instanceOf(Object).isRequired,
+  songParts: PropTypes.instanceOf(Object).isRequired,
 };

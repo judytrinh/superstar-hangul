@@ -165,8 +165,8 @@ export default class LyricEntry extends Component {
               type="text"
               value={editableInput}
               onChange={this.handleTypingInputChange}
-              autoFocus={true}
-              ref={c => (this._input = c)}
+              autoFocus
+              ref={(c) => { this._input = c; }}
             />
           </div>
         </div>

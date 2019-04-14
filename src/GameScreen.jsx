@@ -4,7 +4,6 @@ import LevelSelectScreen from './screens/LevelSelectScreen';
 import GameplayScreen from './screens/GameplayScreen';
 import SummaryScreen from './screens/SummaryScreen';
 
-
 /**
  * Displays the current screen the user is on. Handles cycling between screens
  * and passing info between them.
@@ -37,21 +36,24 @@ export default class GameScreen extends Component {
   // TODO: consider fetching via name and not index for future proofing.
   // shouldn't be too costly given the number of screens.
   // fetching songMetadata and returns the json, sets fields for parts
-  // 
   moveToGameplayScreen = (songMetadata) => {
     if (this.currentScreenIndex !== 1) { return; }
     fetch(songMetadata.dataFile)
-      //fetches parts: an array of objects with info of each song
-      .then((data) => data.json())
-      //
-      .then((parts) => {
-        parts.forEach( (part) => {
-          part.duration = Number(new Date(part.stop)) - Number(new Date(part.start));
-          part.lyric = part.korean;
-          part.translation = part.english;
+      // fetches parts: an array of objects with info of each song
+      .then(data => data.json())
+      .then((songParts) => {
+        songParts.forEach((part) => {
+          const songPart = part;
+          songPart.duration = Number(new Date(part.stop)) - Number(new Date(part.start));
+          songPart.lyric = part.korean;
+          songPart.translation = part.english;
         });
         this.screenList[2].screen = (
-          <GameplayScreen moveToSummaryScreen={this.moveToSummaryScreen} songMetadata={songMetadata} parts={parts} />
+          <GameplayScreen
+            moveToSummaryScreen={this.moveToSummaryScreen}
+            songMetadata={songMetadata}
+            songParts={songParts}
+          />
         );
         this.moveToNextScreen();
       });

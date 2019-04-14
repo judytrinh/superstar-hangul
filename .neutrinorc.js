@@ -15,7 +15,8 @@ module.exports = {
           baseConfig: {
             rules: {
               'babel/semi': 'off',
-              'react/destructuring-assignment': 'off'
+              'react/destructuring-assignment': 'off',
+              'jsx-a11y/no-autofocus': 'off'
             },
           },
         },
