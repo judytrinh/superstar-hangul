@@ -47,11 +47,9 @@ export default class LevelSelectScreen extends Component {
 
     return (
       <div id="level-select-screen">
-
         <h5>Choose a song.</h5>
         <br />
         {songCards}
-
       </div>
     );
   }
