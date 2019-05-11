@@ -26,10 +26,14 @@ export default class SummaryScreen extends Component {
 
   render() {
     const { name } = this.state;
+    const { summaryInfo } = this.props;
     return (
       <div id="summary-screen">
-        {name}
+        Number of words correct is
+        <div id="word-count"> {summaryInfo}
+        </div>
       </div>
+
     );
   }
 }
@@ -38,4 +42,9 @@ SummaryScreen.ENTER_KEY = 13;
 
 SummaryScreen.propTypes = {
   resetToFirstScreen: PropTypes.func.isRequired,
+  summaryInfo: PropTypes.number,
 };
+
+SummaryScreen.defaultProps = {
+  summaryInfo: 0,
+}

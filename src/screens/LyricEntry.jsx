@@ -92,7 +92,7 @@ export default class LyricEntry extends Component {
 
   // TODO: account for skipping english word groups
   validateInputAndAddFeedback = () => {
-    const { editableInput, currWordGroupIndex, allcorrect} = this.state;
+    const { editableInput, currWordGroupIndex, allcorrect } = this.state;
 
     if (currWordGroupIndex >= this.lyricWordGroups.length) {
       // Attempting to access word group index out of bounds.
@@ -110,6 +110,7 @@ export default class LyricEntry extends Component {
     }
     this.updateVisualFeedback(currWordGroup);
     this.setState({ currWordGroupIndex: currWordGroupIndex + 1 });
+    this.addWordGroupToWordCounter(currWordGroup.length);
   };
   // TODO
   getInputClassName(){
@@ -118,6 +119,11 @@ export default class LyricEntry extends Component {
       return "all-correct";
     }
     return "correct-input";
+  }
+
+  addWordGroupToWordCounter(wordGroupLength) {
+    const { updateWordCounter } = this.props;
+    updateWordCounter(wordGroupLength);
   }
 
   // Input word group was correct, so we now reconstruct the green "valid"
@@ -199,8 +205,10 @@ LyricEntry.propTypes = {
   lyric: PropTypes.string.isRequired,
   // Call this when we've validated that the user's input is correct
   moveToNextLyric: PropTypes.func.isRequired,
+  updateWordCounter: PropTypes.func,
 };
 
 LyricEntry.defaultProps = {
   translation: '',
+  updateWordCounter: null,
 };

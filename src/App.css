@@ -147,3 +147,13 @@ h2 {
 .correct-input {
   color: green;
 }
+
+/* Summary screen css */
+
+#summary-screen {
+    text-align: center;
+}
+
+#word-count {
+    font-size: 150px;
+}

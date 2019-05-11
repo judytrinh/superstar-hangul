@@ -16,6 +16,7 @@ export default class GameplayScreen extends Component {
       currentLyric: songParts[this.lyricIndex].lyric,
       currentTranslation: songParts[this.lyricIndex].translation,
       currentDuration: songParts[this.lyricIndex].duration,
+      currentWordCounter: 0,
     };
   }
 
@@ -35,13 +36,22 @@ export default class GameplayScreen extends Component {
       return;
     }
     const { moveToSummaryScreen } = this.props;
-    moveToSummaryScreen();
+    const { currentWordCounter } = this.state;
+
+    moveToSummaryScreen(currentWordCounter);
   };
 
   continue = () => {
     const { moveToSummaryScreen } = this.props;
-    moveToSummaryScreen();
+    const { currentWordCounter } = this.state;
+    moveToSummaryScreen(currentWordCounter);
   };
+
+  onWordGroupComplete = (length) => {
+    const { currentWordCounter } = this.state;
+    this.setState({ currentWordCounter: currentWordCounter + length });
+    console.log(this.state.currentWordCounter);
+  }
 
   moveToNextLyric = () => {
     // if we're not on the last line, increase line index by 1
@@ -76,6 +86,7 @@ export default class GameplayScreen extends Component {
           translation={currentTranslation}
           lyric={currentLyric}
           duration={currentDuration}
+          updateWordCounter={this.onWordGroupComplete}
         />
       </div>
     );

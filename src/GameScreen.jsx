@@ -26,6 +26,7 @@ export default class GameScreen extends Component {
     this.currentScreenIndex = 0;
     this.state = {
       currentScreen: this.getCurrentScreen(),
+      wordCounter: 0,
     };
   }
 
