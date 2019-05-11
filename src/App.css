@@ -50,6 +50,24 @@ h2 {
     text-align: left;
 }
 
+.all-correct {
+  color: deeppink; 
+  animation: glow .5s infinite alternate;
+}
+
+
+@keyframes glow {
+    to {
+        text-shadow: 0 0 10px red;
+    }
+}
+
+.confirm_selection {
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+}
+
 .lyric-entry .typing-input {
   display: inline-flex;
   margin: auto;
@@ -71,6 +89,7 @@ h2 {
   padding-right: 0;
   display: inline-block;
 }
+
 
 .lyric-entry .typing-input input {
   display: inline-block;

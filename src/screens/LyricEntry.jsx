@@ -57,6 +57,7 @@ export default class LyricEntry extends Component {
       // index in this.lyricWordGroups of group that user needs to type correctly next
       currWordGroupIndex: 0,
       lyricElements: [],
+      allcorrect: false,
     };
 
     this.correctInputGroups = [];
@@ -91,22 +92,33 @@ export default class LyricEntry extends Component {
 
   // TODO: account for skipping english word groups
   validateInputAndAddFeedback = () => {
-    const { editableInput, currWordGroupIndex } = this.state;
+    const { editableInput, currWordGroupIndex, allcorrect} = this.state;
 
     if (currWordGroupIndex >= this.lyricWordGroups.length) {
       // Attempting to access word group index out of bounds.
       // Should have proceeded to next set of lyrics by now.
       return;
     }
-
     const currWordGroup = this.lyricWordGroups[currWordGroupIndex];
     if (currWordGroup !== editableInput) {
       // Incorrect input so far, will not mark as valid
       return;
     }
+    if (currWordGroupIndex == this.lyricWordGroups.length - 1) {
+      console.log("good job");
+      this.setState({allcorrect: true});
+    }
     this.updateVisualFeedback(currWordGroup);
     this.setState({ currWordGroupIndex: currWordGroupIndex + 1 });
   };
+  // TODO
+  getInputClassName(){
+    const { allcorrect } = this.state;
+    if (allcorrect) {
+      return "all-correct";
+    }
+    return "correct-input";
+  }
 
   // Input word group was correct, so we now reconstruct the green "valid"
   // displayed string and update that, as well as remove that word group from
@@ -136,6 +148,7 @@ export default class LyricEntry extends Component {
       correctInput: '',
       editableInput: '',
       currWordGroupIndex: 0,
+      allcorrect: false,
     });
     this.correctInputGroups = [];
     ReactTestUtils.Simulate.keyDown(this._input, { key: 'Enter', keyCode: 13, which: 13 });
@@ -144,10 +157,10 @@ export default class LyricEntry extends Component {
 
   render() {
     const { translation } = this.props;
-    const { correctInput, editableInput, lyricElements } = this.state;
+    const { correctInput, editableInput, lyricElements, allcorrect} = this.state;
 
     const correctInputSpan = correctInput !== '' ? (
-      <span className="correct-input">
+      <span className= {this.getInputClassName()}>
         {correctInput}
         &nbsp;
       </span>
@@ -155,7 +168,7 @@ export default class LyricEntry extends Component {
 
     return (
       <div className="lyric-entry">
-        <h2 className="sample-text">{lyricElements}</h2>
+        <h2 className= {"sample-text"}>{lyricElements}</h2>
         <h6 className="sample-text">{translation}</h6>
         <br />
         <div className="typing-input cursor">
